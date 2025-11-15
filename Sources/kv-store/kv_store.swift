@@ -13,4 +13,11 @@ public actor KVStore {
         let entry = KVEntry(key: key, value: value)
         storage[key] = entry
     }
+
+    public func get(_ key: String) throws -> Data {
+        guard let entry = storage[key] else {
+            throw KVError.keyNotFound(key)
+        }
+        return entry.value
+    }
 }
