@@ -1,5 +1,6 @@
 import Foundation
 
+@available(macOS 10.15, *)
 public actor KVStore {
     private var storage: [String: KVEntry] = [:]
 
@@ -21,7 +22,7 @@ public actor KVStore {
         return entry.value
     }
 
-    public func delete(_ key: String) throws {
+    public func delete(_ key: String) throws -> Data {
         guard let entry = storage.removeValue(forKey: key) else {
             throw KVError.keyNotFound(key)
         }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct KVEntry {
+public struct KVEntry: Sendable {
     public let key: String
     public let value: Data
     public let timestamo: UInt64
@@ -14,7 +14,7 @@ public struct KVEntry {
     }
 }
 
-public struct KVStats {
+public struct KVStats: Sendable {
     public let keyCount: Int
     public let memoryBytes: Int
 
