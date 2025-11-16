@@ -44,7 +44,9 @@ public actor KVStore {
     public func stats() -> KVStats {
         let keyCount = storage.count
         let memoryBytes = storage.values.reduce(0) { sum, entry in
-            sum + entry.key.utf8.count + entry.value.count
+            sum + entry.key.utf8.count + entry.value.count + MemoryLayout<UInt64>.size
         }
+
+        return KVStats(keyCount: keyCount, memoryBytes: memoryBytes)
     }
 }
