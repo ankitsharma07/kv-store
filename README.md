@@ -16,6 +16,7 @@ Examples:
 OK
 > set user:2 Bob
 OK
+> set user:3 Alex
 > get user:1
 "Alice"
 > keys
