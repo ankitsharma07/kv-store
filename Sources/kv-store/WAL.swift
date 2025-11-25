@@ -14,5 +14,9 @@ struct WALEntry {
 
     func serialize() -> Data {
         var data = Data()
+        data.append(operation.rawValue)
+
+        let keyData = key.data(using: .utf8)!
+        var keyLength = UInt32()
     }
 }
