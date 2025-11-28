@@ -33,7 +33,6 @@ struct CLI {
                     let key = parts[1]
                     let value = parts[2].data(using: .utf8)!
                     try await store.set(key, value: value)
-                    print("OK")
 
                 case "get":
                     guard parts.count == 2 else {
