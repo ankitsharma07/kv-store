@@ -110,7 +110,7 @@ struct CLI {
             } catch KVError.keyNotFound(let key) {
                 print("Error: Key not found: \(key)")
             } catch KVError.invalidKey {
-                print("Error: Invalid key")
+                print("Error: Invalid key. Please enter the right key.")
             } catch {
                 print("Error: \(error)")
             }
