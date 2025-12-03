@@ -17,6 +17,22 @@ struct WALEntry {
         data.append(operation.rawValue)
 
         let keyData = key.data(using: .utf8)!
-        var keyLength = UInt32()
+        var keyLength = UInt32(keyData.count).bigEndian
+        data.append(Data(bytes: &keyLength, count: 4))
+        data.append(keyData)
+
+        if let value = value {
+            var valueLength = UInt32(value.count).bigEndian
+            data.append(Data(bytes: &valueLength, count: 4))
+            data.append(value)
+        } else {
+            var valueLength = UInt32(0).bigEndian
+            data.append(Data(bytes: &valueLength, count: 4))
+        }
+
+        var ts = timestamp.bigEndian
+        data.append(Data(bytes: &ts, count: 8))
+
+        return data
     }
 }
