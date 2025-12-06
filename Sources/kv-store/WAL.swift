@@ -35,4 +35,8 @@ struct WALEntry {
 
         return data
     }
+
+    static func deserialize(from data: Data, offset: inout Int) throws -> WALEntry? {
+        guard offset
+    }
 }
