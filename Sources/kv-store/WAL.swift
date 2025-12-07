@@ -52,6 +52,10 @@ struct WALEntry {
         guard offset + 4 <= data.count else {
             throw KVError.storageFailure("Incomplete key length")
         }
-        let keylength
+        let keyLength = Int(
+            data[offset..<offset + 4].withUnsafeBytes { $0.load(as: UInt32.self).bigEndian })
+        offset += 4
+
+        guard offset + keyLength
     }
 }
