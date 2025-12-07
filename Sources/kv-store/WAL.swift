@@ -37,6 +37,21 @@ struct WALEntry {
     }
 
     static func deserialize(from data: Data, offset: inout Int) throws -> WALEntry? {
-        guard offset
+        guard offset < data.count else { return nil }
+
+        guard offset + 1 <= data.count else {
+            throw KVError.storageFailure("Incomplete operation byte")
+        }
+        let opByte = data[offset]
+        offset += 1
+
+        guard let operation = WALOperation(rawValue: opByte) else {
+            throw KVError.storageFailure("Invalid WAL operation: \(opByte)")
+        }
+
+        guard offset + 4 <= data.count else {
+            throw KVError.storageFailure("Incomplete key length")
+        }
+        let keylength
     }
 }
