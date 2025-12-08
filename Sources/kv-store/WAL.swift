@@ -56,6 +56,31 @@ struct WALEntry {
             data[offset..<offset + 4].withUnsafeBytes { $0.load(as: UInt32.self).bigEndian })
         offset += 4
 
-        guard offset + keyLength
+        guard offset + keyLength <= data.count else {
+            throw KVError.storageFailure("Incomplete key data")
+        }
+
+        guard let key = String(data: data[offset..<offset + keyLength], encoding: .utf8) else {
+            throw KVError.storageFailure("Invalid key encoding")
+        }
+
+        offset += keyLength
+
+        guard offset + 4 <= data.count else {
+            throw KVError.storageFailure("Incomplete value length")
+        }
+        let valueLength = Int(
+            data[offset..<offset + 4].withUnsafeBytes { $0.load(as: UInt32.self).bigEndian })
+        offset += 4
+
+        guard offset + valueLength <= data.count else {
+            throw KVError.storageFailure("Incomplete value data")
+        }
+
+        let value = data[offset..<offset + valueLength]
+
+        offset += valueLength
+
+        return WALEntry(operation: operation, key: key, value: value, timestamp: ts)
     }
 }
