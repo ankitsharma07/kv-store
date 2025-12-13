@@ -1,3 +1,5 @@
+// Write Ahead Log (WAL) implementation 
+
 import CryptoKit
 import Foundation
 
