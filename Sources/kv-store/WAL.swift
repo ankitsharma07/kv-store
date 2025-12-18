@@ -8,6 +8,7 @@ enum WALOperation: UInt8 {
     case delete = 2
 }
 
+
 struct WALEntry {
     let operation: WALOperation
     let key: String
