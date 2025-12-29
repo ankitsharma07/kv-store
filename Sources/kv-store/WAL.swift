@@ -1,4 +1,4 @@
-// Write Ahead Log (WAL) implementation 
+// Write Ahead Log (WAL) implementation
 
 import CryptoKit
 import Foundation
@@ -7,7 +7,6 @@ enum WALOperation: UInt8 {
     case set = 1
     case delete = 2
 }
-
 
 struct WALEntry {
     let operation: WALOperation
@@ -84,6 +83,6 @@ struct WALEntry {
 
         offset += valueLength
 
-        return WALEntry(operation: operation, key: key, value: value, timestamp: ts)
+        return WALEntry(operation: operation, key: key, value: value)
     }
 }
